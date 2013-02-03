@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # 07-feb-2008/FK Added USER env variable to HTTP value.
 # -- ----------------------------------------------------------------
 # -- This file is for Unix systems.
@@ -7,7 +7,7 @@
 # -- is not in *your* public_html (web access) directory.
 # -- ----------------------------------------------------------------
 
-HTTP=http://www.dsv.su.se/~${USER}/prislab1/server
+HTTP=http://localhost:8080/server
 
 ROOT=$(dirname $0)/../..
 

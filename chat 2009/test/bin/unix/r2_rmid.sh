@@ -1,4 +1,4 @@
-#!
+#!/usr/bin/env sh
 # 06-feb-2012/FK Update for Ubuntu Linux
 # -- ----------------------------------------------------------------
 # -- This file is for Unix/Linux systems.
