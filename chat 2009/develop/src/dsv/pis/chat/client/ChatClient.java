@@ -137,6 +137,9 @@ public class ChatClient
             serverIDs.put (sit.serviceID, sit);
             System.out.println ("[Added server " + sit.toString () + "]");
         }
+        if (myServer == null) {
+            connectToChat(null);
+        }
     }
 
     // In interface ServiceDiscoveryListener

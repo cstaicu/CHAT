@@ -2,3 +2,11 @@ develop/build
 develop/dist
 log
 .idea/
+chat 2009/develop/dist/
+chat 2009/test/cbs/server/ChatServer-dl.jar
+
+chat 2009/test/cbs/client/ChatClient.jar
+
+chat 2009/test/cbs/server/ChatServer.jar
+
+chat 2009/test/cbs/client/ChatClient-dl.jar
