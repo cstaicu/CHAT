@@ -1,12 +1,22 @@
-develop/build
-develop/dist
-log
 .idea/
-chat 2009/develop/dist/
-chat 2009/test/cbs/server/ChatServer-dl.jar
+chat 2009/log/
+chat 2009/test/bin/log/
+chat 2009/test/bin/unix/log/
+
+chat 2009/develop/build/dsv/pis/chat/client/ChatClient.class
+
+chat 2009/develop/dist/ChatClient-dl.jar
+
+chat 2009/develop/dist/ChatClient.jar
+
+chat 2009/develop/dist/ChatServer-dl.jar
+
+chat 2009/develop/dist/ChatServer.jar
+
+chat 2009/test/cbs/client/ChatClient-dl.jar
 
 chat 2009/test/cbs/client/ChatClient.jar
 
-chat 2009/test/cbs/server/ChatServer.jar
+chat 2009/test/cbs/server/ChatServer-dl.jar
 
-chat 2009/test/cbs/client/ChatClient-dl.jar
+chat 2009/test/cbs/server/ChatServer.jar
