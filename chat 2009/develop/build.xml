@@ -72,6 +72,7 @@
                    **/ChatClient_Skel.class,\
                    **/MyRemoteEventListener.class,\
                    **/ChatNotification.class,\
+                   **/JoinNotification.class,\
                    **/ChatServerInterface.class">
     </jar>
     <jar basedir="${dir.build}" compress="true"
@@ -86,6 +87,7 @@
                    **/ChatServer_Stub.class,\
                    **/ChatServer_Skel.class,\
                    **/ChatNotification.class,\
+                   **/JoinNotification.class,\
                    **/MyRemoteEventListener.class,\
                    **/ChatServerInterface.class,\
                    **/ChatServer$IDListener.class">

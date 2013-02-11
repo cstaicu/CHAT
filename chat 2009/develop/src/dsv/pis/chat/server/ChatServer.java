@@ -200,6 +200,11 @@ public class ChatServer
         }
     }
 
+    // Increase message count
+    protected  synchronized void increaseCount() {
+        msgCount ++;
+    }
+
     // In interface ChatServerInterface
 
     public ArrayList<String> listClients () throws java.rmi.RemoteException {
@@ -208,6 +213,17 @@ public class ChatServer
             list.add(name);
         }
         return list;
+    }
+
+    // Method for broadcasting the join event
+    protected void broadcastJoinEvent(String name) {
+        try {
+            for (RemoteEventListener c : clients.keySet()) {
+                c.notify(new JoinNotification(this, name, msgCount));
+            }
+        }
+        catch (UnknownEventException error) {}
+        catch (RemoteException error) {}
     }
 
     // In interface ChatServerInterface
@@ -222,6 +238,8 @@ public class ChatServer
             throws java.rmi.RemoteException
     {
         if (rel != null) {
+            increaseCount();
+            broadcastJoinEvent(name);
             addClient (rel, name);
         }
     }

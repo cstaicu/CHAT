@@ -18,6 +18,7 @@ import java.util.Vector;
 
 // Jini
 
+import dsv.pis.chat.server.JoinNotification;
 import net.jini.core.entry.*;
 import net.jini.core.event.*;
 import net.jini.core.lookup.*;
@@ -193,6 +194,11 @@ public class ChatClient
             ChatNotification chat = (ChatNotification) rev;
             System.out.println (chat.getSequenceNumber () + " : " +
                     chat.getText ());
+        }
+        else if (rev instanceof JoinNotification) {
+            JoinNotification join = (JoinNotification) rev;
+            System.out.println(String.format("Server: %s has joined our chat.",
+                    join.getName()));
         }
     }
 
