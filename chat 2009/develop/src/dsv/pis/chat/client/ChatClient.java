@@ -90,7 +90,7 @@ public class ChatClient
     /**
      * Creates a new ChatClient instance.
      */
-    public ChatClient ()
+    public ChatClient (String name)
             throws
             java.io.IOException,
             java.lang.ClassNotFoundException,
@@ -116,6 +116,8 @@ public class ChatClient
         // and ourselves so the cache can notify us via the interface
         // ServiceDiscoveryListener (which we implement below).
         luc = sdm.createLookupCache (chatServiceTemplate, null, this);
+
+        setName(name);
     }
 
     // The next three methods, serviceAdded, serviceChanged and serviceRemoved,
@@ -609,9 +611,17 @@ public class ChatClient
             java.lang.ClassNotFoundException,
             java.rmi.RemoteException
     {
+        String name = null;
         System.setSecurityManager (new RMISecurityManager ());
 
-        ChatClient cc = new ChatClient ();
+        for(int i = 0; i < argv.length; i++) {
+            if (argv[i].equals("-n")) {
+                name = argv[i+1];
+                break;
+            }
+        }
+
+        ChatClient cc = new ChatClient (name);
         cc.readLoop ();
     }
 }

@@ -50,4 +50,9 @@ public interface ChatServerInterface
      */
     public void unregister (RemoteEventListener rel)
             throws java.rmi.RemoteException;
+
+    /**
+     * Used by ChatClient instances to list the users currently connected to the
+     * server. 
+     */
 }

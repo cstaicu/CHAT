@@ -23,10 +23,10 @@ Optional tasks for the chat-programs.
 * Make the service have a globally unique name, even when it is
   started without the name (-n <name>) option.
 
-* Add to the client the option to provide a sender name on the
+= Add to the client the option to provide a sender name on the
   commandline.
 
-* Make the client automatically connect to an appropriate server. This
+= Make the client automatically connect to an appropriate server. This
   may be the first one found, the one most recently used or one
   statically configured in a user preference set. Which is more
   useful?
