@@ -226,6 +226,16 @@ public class ChatServer
         catch (RemoteException error) {}
     }
 
+    // Method for broadcasting the leave event
+    protected void broadcastLeaveEvent(String name) {
+        try {
+            for (RemoteEventListener c : clients.keySet()) {
+                c.notify(new LeaveNotification(this, name, msgCount));
+            }
+        }
+        catch (UnknownEventException error) {}
+        catch (RemoteException error) {}
+    }
     // In interface ChatServerInterface
 
     public String getName () throws java.rmi.RemoteException {
@@ -250,7 +260,10 @@ public class ChatServer
             throws java.rmi.RemoteException
     {
         if (rel != null) {
+            String name = clients.get(rel);
             removeClient (rel);
+            increaseCount();
+            broadcastLeaveEvent(name);
         }
     }
 

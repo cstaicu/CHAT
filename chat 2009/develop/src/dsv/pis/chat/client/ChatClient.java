@@ -19,6 +19,7 @@ import java.util.Vector;
 // Jini
 
 import dsv.pis.chat.server.JoinNotification;
+import dsv.pis.chat.server.LeaveNotification;
 import net.jini.core.entry.*;
 import net.jini.core.event.*;
 import net.jini.core.lookup.*;
@@ -199,6 +200,11 @@ public class ChatClient
             JoinNotification join = (JoinNotification) rev;
             System.out.println(String.format("Server: %s has joined our chat.",
                     join.getName()));
+        }
+        else if (rev instanceof LeaveNotification) {
+            LeaveNotification leave = (LeaveNotification) rev;
+            System.out.println(String.format("Server: %s has left our chat.",
+                    leave.getName()));
         }
     }
 
