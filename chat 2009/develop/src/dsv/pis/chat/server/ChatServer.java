@@ -18,6 +18,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Vector;
 
@@ -57,7 +60,8 @@ public class ChatServer
      * The notification objects of registered clients are held in this
      * vector.
      */
-    protected Vector clients = new Vector ();
+    protected HashMap<RemoteEventListener, String> clients =
+            new HashMap<RemoteEventListener, String> ();
 
     /**
      * The printed name of this server instance.
@@ -171,8 +175,8 @@ public class ChatServer
      * simultaneous update of the client list.
      * @param rel  The RemoteEventListener implementation to add.
      */
-    protected synchronized void addClient (RemoteEventListener rel) {
-        clients.add (rel);
+    protected synchronized void addClient (RemoteEventListener rel, String name) {
+        clients.put(rel, name);
         System.out.println ("Added client : " + rel.toString ());
     }
 
@@ -198,17 +202,27 @@ public class ChatServer
 
     // In interface ChatServerInterface
 
+    public ArrayList<String> listClients () throws java.rmi.RemoteException {
+        ArrayList<String> list = new ArrayList<String> ();
+        for (String name : clients.values()) {
+            list.add(name);
+        }
+        return list;
+    }
+
+    // In interface ChatServerInterface
+
     public String getName () throws java.rmi.RemoteException {
         return serverName;
     }
 
     // In interface ChatServerInterface
 
-    public void register (RemoteEventListener rel)
+    public void register (RemoteEventListener rel, String name)
             throws java.rmi.RemoteException
     {
         if (rel != null) {
-            addClient (rel);
+            addClient (rel, name);
         }
     }
 
@@ -263,10 +277,8 @@ public class ChatServer
                 // Prepare a notification
                 ChatNotification note = new ChatNotification (this, msg, msgCount);
                 // Send it to all registered listeners.
-                for (int i = 0; i < clients.size (); i++) {
+                for (RemoteEventListener rel : clients.keySet()) {
                     try {
-                        RemoteEventListener rel =
-                                (RemoteEventListener) clients.elementAt (i);
                         rel.notify (note);
                     }
                     catch (java.lang.ArrayIndexOutOfBoundsException aio) {}

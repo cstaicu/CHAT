@@ -7,6 +7,7 @@
 package dsv.pis.chat.server;
 
 import java.rmi.*;
+import java.util.ArrayList;
 
 import net.jini.core.event.RemoteEventListener;
 
@@ -38,7 +39,7 @@ public interface ChatServerInterface
      * @param rel An object that implements net.jini.core.event.RemoteEvent
      *            interface.
      */
-    public void register (RemoteEventListener rel)
+    public void register (RemoteEventListener rel, String name)
             throws java.rmi.RemoteException;
 
     /**
@@ -53,6 +54,8 @@ public interface ChatServerInterface
 
     /**
      * Used by ChatClient instances to list the users currently connected to the
-     * server. 
+     * server.
      */
+    public ArrayList<String> listClients () throws java.rmi.RemoteException;
+
 }

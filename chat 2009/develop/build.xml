@@ -47,8 +47,8 @@
     <javac debug="true"
            deprecation="true"
 	   destdir="${dir.build}"
-	   source="1.4"
-	   target="1.4"
+	   source="1.7"
+	   target="1.7"
 	   srcdir="${dir.src}">
       <classpath refid="project.class.path"/>
     </javac>
@@ -99,7 +99,7 @@
   </target>
 
   <!-- This is the default target. Its dependiencies make it run init, compile, rmic and jar. -->
-  <target name="all" depends="jar" description="Build everything.">
+  <target name="all" depends="jar, copy" description="Build everything.">
     <echo message="Application built!"/>
   </target>
 
@@ -145,5 +145,10 @@
     <delete dir="${dir.cbs.client}"/>
     <delete dir="${dir.cbs.server}"/>
   </target>
+
+    <target name="copy" description="Copy jar filess">
+        <exec dir="../" executable="./copyjar.sh" spawn="true">
+        </exec>
+    </target>
 
 </project>
