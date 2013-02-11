@@ -24,3 +24,5 @@ chat 2009/test/cbs/server/ChatServer.jar
 chat 2009/develop/build/dsv/pis/chat/server/ChatServer.class
 
 chat 2009/develop/build/dsv/pis/chat/server/JoinNotification.class
+
+chat 2009/develop/build/dsv/pis/chat/server/LeaveNotification.class
