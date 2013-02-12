@@ -20,9 +20,10 @@ import java.net.InetAddress;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Vector;
+
 
 // Jini
 
@@ -60,8 +61,8 @@ public class ChatServer
      * The notification objects of registered clients are held in this
      * vector.
      */
-    protected HashMap<RemoteEventListener, String> clients =
-            new HashMap<RemoteEventListener, String> ();
+    protected HashMap<RemoteEventListener, ArrayList> clients =
+            new HashMap<RemoteEventListener, ArrayList> ();
 
     /**
      * The printed name of this server instance.
@@ -175,8 +176,11 @@ public class ChatServer
      * simultaneous update of the client list.
      * @param rel  The RemoteEventListener implementation to add.
      */
-    protected synchronized void addClient (RemoteEventListener rel, String name) {
-        clients.put(rel, name);
+    protected synchronized void addClient (RemoteEventListener rel, String name, Date date) {
+        ArrayList namedate = new ArrayList();
+        namedate.add(name);
+        namedate.add(date);
+        clients.put(rel, namedate);
         System.out.println ("Added client : " + rel.toString ());
     }
 
@@ -209,17 +213,17 @@ public class ChatServer
 
     public ArrayList<String> listClients () throws java.rmi.RemoteException {
         ArrayList<String> list = new ArrayList<String> ();
-        for (String name : clients.values()) {
-            list.add(name);
+        for (ArrayList namedate : clients.values()) {
+            list.add((String)namedate.get(0));
         }
         return list;
     }
 
     // Method for broadcasting the join event
-    protected void broadcastJoinEvent(String name) {
+    protected void broadcastJoinEvent(String name, Date date) {
         try {
             for (RemoteEventListener c : clients.keySet()) {
-                c.notify(new JoinNotification(this, name, msgCount));
+                c.notify(new JoinNotification(this, name, date, msgCount));
             }
         }
         catch (UnknownEventException error) {}
@@ -249,8 +253,9 @@ public class ChatServer
     {
         if (rel != null) {
             increaseCount();
-            broadcastJoinEvent(name);
-            addClient (rel, name);
+            Date date = new Date();
+            broadcastJoinEvent(name, date);
+            addClient (rel, name, date);
         }
     }
 
@@ -260,7 +265,7 @@ public class ChatServer
             throws java.rmi.RemoteException
     {
         if (rel != null) {
-            String name = clients.get(rel);
+            String name = (String) clients.get(rel).get(0);
             removeClient (rel);
             increaseCount();
             broadcastLeaveEvent(name);

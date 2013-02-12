@@ -26,3 +26,5 @@ chat 2009/develop/build/dsv/pis/chat/server/ChatServer.class
 chat 2009/develop/build/dsv/pis/chat/server/JoinNotification.class
 
 chat 2009/develop/build/dsv/pis/chat/server/LeaveNotification.class
+
+chat 2009/develop/build/dsv/pis/chat/server/ChatServer$IDListener.class

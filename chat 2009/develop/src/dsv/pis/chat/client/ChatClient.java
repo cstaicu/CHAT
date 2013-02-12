@@ -198,8 +198,8 @@ public class ChatClient
         }
         else if (rev instanceof JoinNotification) {
             JoinNotification join = (JoinNotification) rev;
-            System.out.println(String.format("Server: %s has joined our chat.",
-                    join.getName()));
+            System.out.println(String.format("Server: %s has joined our chat at %s",
+                    join.getName(), join.getDate()));
         }
         else if (rev instanceof LeaveNotification) {
             LeaveNotification leave = (LeaveNotification) rev;
