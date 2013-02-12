@@ -85,6 +85,7 @@
          destfile="${dir.dist}/${servercapsname}.jar"
          manifest="${dir.manifest}/${servercapsname}.manifest"
          includes="**/ChatServer.class,\
+                   **/Client.class,\
                    **/ChatServer_Stub.class,\
                    **/ChatServer_Skel.class,\
                    **/ChatNotification.class,\

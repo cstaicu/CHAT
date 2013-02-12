@@ -64,6 +64,8 @@ public class ChatServer
     protected HashMap<RemoteEventListener, ArrayList> clients =
             new HashMap<RemoteEventListener, ArrayList> ();
 
+
+    protected ArrayList<Client> historyClients = new ArrayList<Client>();
     /**
      * The printed name of this server instance.
      */
@@ -191,7 +193,11 @@ public class ChatServer
      * @param rel  The RemoteEventListener implementation to remove.
      */
     protected synchronized void removeClient (RemoteEventListener rel) {
-        clients.remove (rel);
+        //historyClients.add(new Client(rel, (String)clients.get(rel).get(0),
+          //      (Date)clients.get(rel).get(1), new Date()));
+        historyClients.add(new Client(rel, (String) clients.get(rel).get(0),
+                (Date) clients.get(rel).get(1), new Date()));
+        clients.remove(rel);
         System.out.println ("Removed client : " + rel.toString ());
     }
 
@@ -255,7 +261,7 @@ public class ChatServer
             increaseCount();
             Date date = new Date();
             broadcastJoinEvent(name, date);
-            addClient (rel, name, date);
+            addClient(rel, name, date);
         }
     }
 
@@ -315,7 +321,7 @@ public class ChatServer
                 // Send it to all registered listeners.
                 for (RemoteEventListener rel : clients.keySet()) {
                     try {
-                        rel.notify (note);
+                        rel.notify(note);
                     }
                     catch (java.lang.ArrayIndexOutOfBoundsException aio) {}
                     catch (net.jini.core.event.UnknownEventException uee) {}
