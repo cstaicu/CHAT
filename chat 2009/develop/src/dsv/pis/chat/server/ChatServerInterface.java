@@ -58,4 +58,9 @@ public interface ChatServerInterface
      */
     public ArrayList<String> listClients () throws java.rmi.RemoteException;
 
+    /**
+     * Used by ChatClient instances to list the connection history.
+     */
+    public ArrayList<Client> listHistory() throws RemoteException;
+
 }

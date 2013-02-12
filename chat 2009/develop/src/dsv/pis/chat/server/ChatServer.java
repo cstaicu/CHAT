@@ -195,7 +195,7 @@ public class ChatServer
     protected synchronized void removeClient (RemoteEventListener rel) {
         //historyClients.add(new Client(rel, (String)clients.get(rel).get(0),
           //      (Date)clients.get(rel).get(1), new Date()));
-        historyClients.add(new Client(rel, (String) clients.get(rel).get(0),
+        historyClients.add(new Client((String) clients.get(rel).get(0),
                 (Date) clients.get(rel).get(1), new Date()));
         clients.remove(rel);
         System.out.println ("Removed client : " + rel.toString ());
@@ -223,6 +223,11 @@ public class ChatServer
             list.add((String)namedate.get(0));
         }
         return list;
+    }
+
+    // In interface ChatServerInterface
+    public ArrayList<Client> listHistory() throws RemoteException {
+        return historyClients;
     }
 
     // Method for broadcasting the join event

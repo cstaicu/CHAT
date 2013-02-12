@@ -68,6 +68,7 @@
          destfile="${dir.dist}/${clientcapsname}.jar"
          manifest="${dir.manifest}/${clientcapsname}.manifest"
          includes="**/ChatClient.class,\
+                   **/Client.class,\
                    **/ChatClient_Stub.class,\
                    **/ChatClient_Skel.class,\
                    **/MyRemoteEventListener.class,\

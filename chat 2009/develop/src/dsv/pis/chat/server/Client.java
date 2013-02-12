@@ -2,6 +2,7 @@ package dsv.pis.chat.server;
 
 import net.jini.core.event.RemoteEventListener;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,21 +12,15 @@ import java.util.Date;
  * Time: 1:31 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Client {
-    protected RemoteEventListener rel;
+public class Client implements Serializable {
     protected String name;
     protected Date joinDate;
     protected Date leaveDate;
 
-    public Client(RemoteEventListener rel, String name, Date joinDate, Date leaveDate) {
-        this.rel = rel;
+    public Client(String name, Date joinDate, Date leaveDate) {
         this.name = name;
         this.joinDate = joinDate;
         this.leaveDate = leaveDate;
-    }
-
-    public RemoteEventListener getRel() {
-        return rel;
     }
 
     public String getName() {
@@ -40,20 +35,4 @@ public class Client {
         return leaveDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Client client = (Client) o;
-
-        if (!rel.equals(client.rel)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return rel.hashCode();
-    }
 }

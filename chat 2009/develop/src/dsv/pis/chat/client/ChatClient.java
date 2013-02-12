@@ -18,8 +18,7 @@ import java.util.Vector;
 
 // Jini
 
-import dsv.pis.chat.server.JoinNotification;
-import dsv.pis.chat.server.LeaveNotification;
+import dsv.pis.chat.server.*;
 import net.jini.core.entry.*;
 import net.jini.core.event.*;
 import net.jini.core.lookup.*;
@@ -28,8 +27,6 @@ import net.jini.lookup.entry.*;
 
 // Chatserver
 
-import dsv.pis.chat.server.ChatServerInterface;
-import dsv.pis.chat.server.ChatNotification;
 
 /**
  * This class implements the ChatClient application.
@@ -458,7 +455,8 @@ public class ChatClient
             "disconnect        Break the connection to the server",
             "quit              Exit the client",
             "help              This text",
-            "clients           Show the list of the clients who is connected to the server"
+            "clients           Show the list of the clients who is connected to the server",
+            "history           Show the list of connection history"
     };
 
     /**
@@ -485,6 +483,24 @@ public class ChatClient
             System.out.println("=========================");
         } catch (RemoteException error) {
             System.out.println("Error: Cannot get clients list.");
+        }
+    }
+
+    /**
+     * Implements the '.history' user command.
+     */
+    protected void showHistory() {
+        try {
+            ArrayList<Client> history = myServer.listHistory();
+            System.out.println("======== History ========");
+            for (Client c : history) {
+                System.out.println(String.format("Name: %s \tJoin: %s\n\t\tLeave: %s",
+                        c.getName(), c.getJoinDate(), c.getLeaveDate()));
+            }
+            System.out.println("=========================");
+        } catch (RemoteException error) {
+//            System.out.println("Error: Cannot get history list.");
+            error.printStackTrace();
         }
     }
 
@@ -608,6 +624,9 @@ public class ChatClient
                 }
                 else if ("clients".startsWith(verb)) {
                     showClients();
+                }
+                else if ("history".startsWith(verb)) {
+                    showHistory();
                 }
                 else if ("help".startsWith (verb)) {
                     showHelp (argv);

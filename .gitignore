@@ -30,3 +30,13 @@ chat 2009/develop/build/dsv/pis/chat/server/LeaveNotification.class
 chat 2009/develop/build/dsv/pis/chat/server/ChatServer$IDListener.class
 
 *.class
+
+*.class
+
+*.class
+
+chat 2009/develop/build/dsv/pis/chat/server/ChatServer_Skel.class
+
+chat 2009/develop/build/dsv/pis/chat/server/ChatServerInterface.class
+
+chat 2009/develop/build/dsv/pis/chat/server/ChatServer_Stub.class
