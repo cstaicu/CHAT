@@ -476,11 +476,7 @@ public class ChatClient
     protected void showClients() {
         try {
             ArrayList<String> clients = myServer.listClients();
-            System.out.println("======== Clients ========");
-            for (String c : clients) {
-                System.out.println(c);
-            }
-            System.out.println("=========================");
+            printListInPages("Clients", 1, clients);
         } catch (RemoteException error) {
             System.out.println("Error: Cannot get clients list.");
         }
@@ -492,16 +488,58 @@ public class ChatClient
     protected void showHistory() {
         try {
             ArrayList<Client> history = myServer.listHistory();
-            System.out.println("======== History ========");
+            ArrayList<String> historyString = new ArrayList<String>();
             for (Client c : history) {
-                System.out.println(String.format("Name: %s \tJoin: %s\n\t\tLeave: %s",
+                historyString.add(String.format("Name: %s \tJoin: %s\n\t\tLeave: %s",
                         c.getName(), c.getJoinDate(), c.getLeaveDate()));
             }
-            System.out.println("=========================");
+            printListInPages("History", 2, historyString);
         } catch (RemoteException error) {
 //            System.out.println("Error: Cannot get history list.");
             error.printStackTrace();
         }
+    }
+
+
+    /**
+     * The method to show list in pages if necessary
+     */
+    protected void printListInPages(String title, int lines, ArrayList<String> list) {
+        int itemPerPage = 20 / lines;
+        int j;
+
+        InputStreamReader stream = new InputStreamReader(System.in);
+        BufferedReader reader = new BufferedReader(stream);
+
+        System.out.println("======== " + title + " ========");
+        if (list.size() <= itemPerPage) {
+            for (String i : list) {
+                System.out.println(i);
+            }
+        }
+        else {
+            try {
+                for(int i = 0; i <= list.size()/itemPerPage; i++) {
+                    if(list.size() == i * itemPerPage){
+                        System.out.println("=========================");
+                        return;
+                    }
+                    System.out.println(String.format("=== Page %d:", i+1));
+                    for(j = i * itemPerPage; j < i * itemPerPage + itemPerPage; j++) {
+                        if (list.size() > j)
+                            System.out.println(list.get(j));
+                    }
+                    System.out.println("=== Input .quit to quit, anything else to show next line:");
+                    if (reader.readLine().equals(".quit")) {
+                        System.out.println("=========================");
+                        return;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        System.out.println("=========================");
     }
 
     /**
